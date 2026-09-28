@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8fc">
+  <title>SQL Quest — Revisão SQL</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="start" class="start-screen">
+    <div class="start-card">
+      <div class="brand-mark" aria-hidden="true">{ }</div>
+      <p class="eyebrow">REVISÃO DE BANCO DE DADOS</p>
+      <h1>SQL <span>QUEST</span></h1>
+      <p class="start-subtitle">10 fases + 1 Chefão</p>
+      <p class="start-description">Reconstrua consultas SQL a partir dos resultados. Explore a base, teste suas ideias e avance no seu ritmo.</p>
+      <form id="start-form">
+        <label for="student-name">Nome do aluno</label>
+        <input id="student-name" name="name" maxlength="80" placeholder="Como podemos chamar você?" autocomplete="name">
+        <label for="student-class">Turma</label>
+        <input id="student-class" name="class" maxlength="40" placeholder="Ex.: 2º A" autocomplete="off">
+        <button class="primary start-button" type="submit">Começar <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="privacy">Seus dados e consultas ficam apenas neste navegador.</p>
+    </div>
+    <div class="start-decoration" aria-hidden="true"><span>SELECT</span><span>FROM</span><span>WHERE</span><span>JOIN</span></div>
+  </main>
+
+  <div id="game" class="game hidden">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-small"><span class="brand-icon">{ }</span> SQL <strong>QUEST</strong></div>
+        <div class="progress-center"><div class="progress-label"><span id="phase-progress">Fase 1/10</span><span id="phase-stars" aria-label="3 estrelas">★★★</span></div><div class="progress-track"><div id="progress-fill"></div></div></div>
+        <div class="top-actions"><span id="student-display" class="student-display"></span><button id="open-bank" class="text-button" type="button">Ver banco</button><button id="restart" class="text-button subdued" type="button">Reiniciar revisão</button></div>
+      </div>
+    </header>
+    <div class="game-shell">
+      <nav id="phase-nav" class="phase-nav" aria-label="Navegação das fases"></nav>
+      <section id="phase-screen" class="phase-screen">
+        <div class="phase-heading"><div><p id="phase-eyebrow" class="eyebrow">FASE 1</p><h2 id="phase-title"></h2></div><span id="phase-status" class="phase-status"></span></div>
+        <div class="workspace">
+          <section class="panel mission-panel" aria-labelledby="target-heading">
+            <div class="panel-heading"><span class="panel-number">01</span><div><p class="section-kicker">MISSÃO</p><h3 id="target-heading">Saída-alvo</h3></div></div>
+            <p class="panel-intro">Produza exatamente esta saída:</p>
+            <div id="target-table" class="table-wrap"></div>
+            <p id="objective" class="objective"></p>
+            <div class="hint-area"><button id="hint-button" class="hint-button" type="button">Quero uma dica <span aria-hidden="true">✦</span></button><div id="hint-list"></div></div>
+          </section>
+          <section class="panel editor-panel" aria-labelledby="editor-heading">
+            <div class="panel-heading"><span class="panel-number">02</span><div><p class="section-kicker">SUA VEZ</p><h3 id="editor-heading">Consulta SQL</h3></div></div>
+            <label class="sr-only" for="sql-editor">Escreva sua consulta SQL</label>
+            <textarea id="sql-editor" placeholder="Escreva sua consulta SQL..." autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+            <div class="editor-actions"><button id="execute" class="secondary" type="button">Executar</button><button id="validate" class="primary" type="button">Validar fase <span aria-hidden="true">→</span></button></div>
+            <div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div>
+            <p id="lesson-note" class="lesson-note hidden">WHERE filtra linhas antes do GROUP BY.<br>HAVING filtra grupos depois do GROUP BY.</p>
+            <div class="result-heading"><p class="section-kicker">SEU RESULTADO</p><span id="result-count"></span></div>
+            <div id="result-table" class="table-wrap result-table"><div class="empty-result">Execute sua consulta para ver o resultado aqui.</div></div>
+          </section>
+        </div>
+        <div id="next-wrap" class="next-wrap hidden"><button id="next-phase" class="primary" type="button">Próxima fase <span aria-hidden="true">→</span></button></div>
+      </section>
+      <section id="transition-screen" class="transition-screen hidden" aria-labelledby="transition-title">
+        <div class="transition-card"><p class="eyebrow">✓ 10 FASES CONCLUÍDAS</p><h2 id="transition-title">Mas a revisão ainda não acabou.</h2><p class="boss-unlocked">⚔ CHEFÃO DESBLOQUEADO</p><button id="face-boss" class="primary" type="button">Enfrentar o Chefão →</button></div>
+      </section>
+      <section id="final-screen" class="final-screen hidden" aria-labelledby="final-title">
+        <div class="final-hero"><span class="trophy" aria-hidden="true">🏆</span><p class="eyebrow">JORNADA COMPLETA</p><h2 id="final-title">SQL Quest concluído</h2><p id="final-person"></p><p>Você concluiu a revisão das seis primeiras aulas de SQL.</p><div class="final-numbers"><div><strong>10 / 10</strong><span>fases</span></div><div><strong id="final-stars"></strong><span>estrelas</span></div></div><p class="boss-defeated">🏆 CHEFÃO DERROTADO</p><button id="download" class="primary" type="button">Baixar respostas.sql <span aria-hidden="true">↓</span></button></div>
+        <div class="final-summary"><h3>Seu percurso</h3><div id="summary-list"></div></div>
+      </section>
+    </div>
+  </div>
+
+  <dialog id="bank-dialog" class="bank-dialog" aria-labelledby="bank-title">
+    <div class="dialog-head"><div><p class="eyebrow">BASE DE DADOS</p><h2 id="bank-title">Explore as tabelas</h2></div><button id="close-bank" class="icon-button" type="button" aria-label="Fechar banco">×</button></div>
+    <div class="relationship"><code>jogadores.id</code><span aria-hidden="true">↔</span><code>partidas.jogador_id</code></div>
+    <div class="bank-tabs" role="tablist" aria-label="Tabelas"><button id="tab-players" type="button" role="tab" aria-selected="true" aria-controls="bank-content">Jogadores</button><button id="tab-matches" type="button" role="tab" aria-selected="false" aria-controls="bank-content">Partidas</button></div>
+    <div id="bank-content" role="tabpanel"></div>
+  </dialog>
+  <dialog id="restart-dialog" class="confirm-dialog" aria-labelledby="restart-title"><h2 id="restart-title">Reiniciar revisão?</h2><p>Isso apagará suas consultas, dicas, estrelas e progresso deste navegador.</p><div class="confirm-actions"><button id="cancel-restart" class="secondary" type="button">Cancelar</button><button id="confirm-restart" class="danger" type="button">Apagar e reiniciar</button></div></dialog>
+  <dialog id="migration-dialog" class="confirm-dialog" aria-labelledby="migration-title"><h2 id="migration-title">Progresso salvo</h2><p id="migration-message"></p><div class="confirm-actions"><button id="acknowledge-migration" class="primary" type="button">Entendi</button><button id="confirm-migration-reset" class="danger hidden" type="button">Apagar e reiniciar</button></div></dialog>
+  <script src="vendor/sql-wasm.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

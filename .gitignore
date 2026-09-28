@@ -1,0 +1,10 @@
+gabarito-professor.sql
+.env
+.env.*
+*.log
+*.tmp
+*~
+.DS_Store
+__pycache__/
+*.pyc
+screenshots/
