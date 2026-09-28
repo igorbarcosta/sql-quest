@@ -10,9 +10,11 @@ python -m http.server 8000 -d docs
 
 Abra `http://localhost:8000`.
 
-## GitHub Pages
+## Jogar
 
-Publique em **Settings → Pages → Deploy from branch → main → /docs**.
+https://igorbarcosta.github.io/sql-quest/
+
+O GitHub Pages publica a pasta `docs/` da branch `main`.
 
 O SQLite via WebAssembly (`sql.js` 1.13.0) está versionado em `docs/vendor/`. Não há etapa de build nem dependência de CDN em tempo de execução.
 
